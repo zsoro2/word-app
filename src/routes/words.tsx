@@ -1,5 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { Plus, Shuffle, Loader2 } from "lucide-react";
+import { Plus, Shuffle, Loader2, Edit3 } from "lucide-react";
+import { useState } from "react";
 import { useWords } from "../context/WordContext";
 import { ProtectedRoute } from "../components/ProtectedRoute";
 import Header from "../components/Header";
@@ -12,6 +13,7 @@ export const Route = createFileRoute("/words")({
 
 function AllWordsPage() {
   const navigate = useNavigate();
+  const [isEditMode, setIsEditMode] = useState(false);
   const {
     words,
     folders,
@@ -44,6 +46,17 @@ function AllWordsPage() {
                 Shuffle Words
               </button>
               <button
+                onClick={() => setIsEditMode(!isEditMode)}
+                className={`flex flex-1 lg:flex-none items-center justify-center gap-1.5 px-4 py-2 rounded-md transition-colors text-sm ${
+                  isEditMode
+                    ? "bg-gray-800 text-white hover:bg-gray-700"
+                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                }`}
+              >
+                <Edit3 className="h-4 w-4" />
+                {isEditMode ? "Done" : "Edit"}
+              </button>
+              <button
                 onClick={() => setShowAddForm(!showAddForm)}
                 className="flex flex-1 lg:flex-none items-center justify-center gap-1.5 px-4 py-2 bg-gray-800 text-white rounded-md hover:bg-gray-700 transition-colors text-sm"
               >
@@ -67,7 +80,7 @@ function AllWordsPage() {
               <Loader2 className="h-8 w-8 text-gray-400 animate-spin" />
             </div>
           ) : (
-            <WordList words={words} />
+            <WordList words={words} isEditMode={isEditMode} />
           )}
         </main>
       </div>

@@ -13,6 +13,7 @@ import {
   createWord,
   createFolder,
   updateFolder,
+  updateWord,
   deleteFolder,
   deleteWord,
   moveWordsToFolder,
@@ -29,6 +30,7 @@ interface WordContextType {
   setShowAddForm: (show: boolean) => void;
   setShowFolderManagement: (show: boolean) => void;
   handleAddWord: (word: NewWordType) => Promise<void>;
+  handleUpdateWord: (wordId: string, word: NewWordType) => Promise<void>;
   handleDeleteWord: (wordId: string) => Promise<void>;
   handleShuffleWords: () => void;
   handleAddFolder: (folder: NewFolderType) => Promise<void>;
@@ -93,6 +95,18 @@ export function WordProvider({ children }: { children: ReactNode }) {
       setWords((prev) => [createdWord, ...prev]);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to add word");
+      throw err;
+    }
+  };
+
+  const handleUpdateWord = async (wordId: string, updatedWord: NewWordType) => {
+    try {
+      const updated = await updateWord(wordId, updatedWord);
+      setWords((prev) =>
+        prev.map((word) => (word.$id === wordId ? updated : word))
+      );
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to update word");
       throw err;
     }
   };
@@ -188,6 +202,7 @@ export function WordProvider({ children }: { children: ReactNode }) {
         setShowAddForm,
         setShowFolderManagement,
         handleAddWord,
+        handleUpdateWord,
         handleDeleteWord,
         handleShuffleWords,
         handleAddFolder,

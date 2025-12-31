@@ -1,13 +1,16 @@
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import WordCard from "./WordCard";
+import { useWords } from "../context/WordContext";
 import type { WordDocument } from "../types";
 
 interface WordListProps {
   words: WordDocument[];
+  isEditMode: boolean;
 }
 
-export default function WordList({ words }: WordListProps) {
+export default function WordList({ words, isEditMode }: WordListProps) {
+  const { handleDeleteWord, handleUpdateWord } = useWords();
   const [hideTerms, setHideTerms] = useState(false);
   const [hideDefinitions, setHideDefinitions] = useState(false);
 
@@ -74,6 +77,9 @@ export default function WordList({ words }: WordListProps) {
             word={word}
             hideTerms={hideTerms}
             hideDefinitions={hideDefinitions}
+            isEditMode={isEditMode}
+            onDelete={handleDeleteWord}
+            onUpdate={handleUpdateWord}
           />
         ))}
       </div>
