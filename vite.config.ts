@@ -14,11 +14,6 @@ const config = defineConfig({
     tanstackStart(),
     viteReact(),
   ],
-  build: {
-    rollupOptions: {
-      input: 'index.html', // main HTML entry
-    },
-  },
 })
 
 export default config
