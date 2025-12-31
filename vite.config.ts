@@ -14,6 +14,12 @@ const config = defineConfig({
     tanstackStart(),
     viteReact(),
   ],
+  build: {
+    outDir: 'dist/client', // <- Only client assets
+    rollupOptions: {
+      input: 'index.html', // main HTML entry
+    },
+  },
 })
 
 export default config
