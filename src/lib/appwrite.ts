@@ -91,7 +91,7 @@ export async function getFolders(userId: string): Promise<FolderDocument[]> {
   const response = await databases.listDocuments(
     DATABASE_ID,
     FOLDERS_COLLECTION_ID,
-    [Query.equal("userId", userId), Query.orderDesc("$createdAt")]
+    [Query.equal("userId", userId), Query.orderDesc("$createdAt"), Query.limit(9999)]
   );
   return response.documents as unknown as FolderDocument[];
 }
@@ -137,7 +137,7 @@ export async function getWords(userId: string): Promise<WordDocument[]> {
   const response = await databases.listDocuments(
     DATABASE_ID,
     WORDS_COLLECTION_ID,
-    [Query.equal("userId", userId), Query.orderDesc("$createdAt")]
+    [Query.equal("userId", userId), Query.orderDesc("$createdAt"), Query.limit(9999)]
   );
   return response.documents as unknown as WordDocument[];
 }
@@ -153,6 +153,7 @@ export async function getWordsByFolder(
       Query.equal("userId", userId),
       Query.equal("folderId", folderId),
       Query.orderDesc("$createdAt"),
+      Query.limit(9999),
     ]
   );
   return response.documents as unknown as WordDocument[];
