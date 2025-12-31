@@ -15,7 +15,6 @@ const config = defineConfig({
     viteReact(),
   ],
   build: {
-    outDir: 'dist/client', // <- Only client assets
     rollupOptions: {
       input: 'index.html', // main HTML entry
     },
