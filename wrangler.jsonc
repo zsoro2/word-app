@@ -1,0 +1,17 @@
+{
+    // Configuration for Cloudflare Workers deployment
+    "name": "vocabmaster-web",
+    "compatibility_date": "2025-12-14",
+    "assets": {
+      "directory": "./dist"
+    },
+    // Uncomment and configure if you add a custom worker script
+    // "main": "./dist/_worker.js",
+    
+    // Environment variables (if needed)
+    // "vars": {
+    //   "API_KEY": "your-api-key"
+    // }
+  }
+  
+  
