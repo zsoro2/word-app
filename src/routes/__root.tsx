@@ -69,6 +69,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       </head>
       <body className="bg-[#FAFAFB] font-[Inter] text-sm text-[#56565C]">
         {children}
+        {import.meta.env.DEV && (
         <TanStackDevtools
           config={{
             position: "bottom-right",
@@ -80,6 +81,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
             },
           ]}
         />
+        )}
         <Scripts />
       </body>
     </html>
